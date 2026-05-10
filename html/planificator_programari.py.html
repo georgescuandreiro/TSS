@@ -1,0 +1,254 @@
+<html><body><h1>planificator_programari.py</h1>Killed 81 out of 104 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 13</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -11,7 +11,7 @@
+         self.ora_sfarsit = ora_sfarsit * 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+         if pauza_minima < 0:
+-            raise ValueError("Pauza minima nu poate fi negativa")
++            raise ValueError("XXPauza minima nu poate fi negativaXX")
+         self.pauza_minima = pauza_minima
+ 
+     def rezerva(self, nume, start, sfarsit):
+</pre><h3>Mutant 21</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -19,7 +19,7 @@
+             raise ValueError("Numele nu poate fi gol")
+ 
+         if start >= sfarsit:
+-            raise ValueError("Ora de start trebuie sa fie inainte de sfarsit")
++            raise ValueError("XXOra de start trebuie sa fie inainte de sfarsitXX")
+ 
+         if start < self.ora_inceput or sfarsit > self.ora_sfarsit:
+             raise ValueError("Programarea este in afara orelor de lucru")
+</pre><h3>Mutant 25</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -22,7 +22,7 @@
+             raise ValueError("Ora de start trebuie sa fie inainte de sfarsit")
+ 
+         if start < self.ora_inceput or sfarsit > self.ora_sfarsit:
+-            raise ValueError("Programarea este in afara orelor de lucru")
++            raise ValueError("XXProgramarea este in afara orelor de lucruXX")
+ 
+         if not self.este_liber(start, sfarsit):
+             raise ValueError("Intervalul ales este deja ocupat")
+</pre><h3>Mutant 61</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -63,7 +63,7 @@
+                 return (curent, curent + durata)
+             # urmatoarea zona libera incepe dupa programare plus pauza
+             nova_pozitie = programare["sfarsit"] + self.pauza_minima
+-            if nova_pozitie > curent:
++            if nova_pozitie >= curent:
+                 curent = nova_pozitie
+ 
+         if self.ora_sfarsit - curent >= durata:
+</pre><h3>Mutant 75</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -82,7 +82,7 @@
+         if not sloturi:
+             return None
+ 
+-        cel_mai_bun = None
++        cel_mai_bun = ""
+         distanta_minima = float("inf")
+ 
+         for slot_start, slot_sfarsit in sloturi:
+</pre><h3>Mutant 79</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -88,7 +88,7 @@
+         for slot_start, slot_sfarsit in sloturi:
+             # incercam sa plasam programarea cat mai aproape de ora preferata
+             start_ideal = ora_preferata
+-            if start_ideal < slot_start:
++            if start_ideal <= slot_start:
+                 start_ideal = slot_start
+             elif start_ideal + durata > slot_sfarsit:
+                 start_ideal = slot_sfarsit - durata
+</pre><h3>Mutant 82</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -90,7 +90,7 @@
+             start_ideal = ora_preferata
+             if start_ideal < slot_start:
+                 start_ideal = slot_start
+-            elif start_ideal + durata > slot_sfarsit:
++            elif start_ideal + durata >= slot_sfarsit:
+                 start_ideal = slot_sfarsit - durata
+ 
+             distanta = abs(start_ideal - ora_preferata)
+</pre><h3>Mutant 101</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -110,7 +110,7 @@
+             if sfarsit_zona - curent >= durata:
+                 sloturi.append((curent, sfarsit_zona))
+             nova_pozitie = programare["sfarsit"] + self.pauza_minima
+-            if nova_pozitie > curent:
++            if nova_pozitie >= curent:
+                 curent = nova_pozitie
+ 
+         if self.ora_sfarsit - curent >= durata:
+</pre><h2>Suspicious</h2>Mutants that made the test suite take longer, but otherwise seemed ok<h3>Mutant 4</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -6,7 +6,7 @@
+ class PlanificatorProgramari:
+ 
+     def __init__(self, ora_inceput=8, ora_sfarsit=18, pauza_minima=0):
+-        self.programari = []
++        self.programari = None
+         self.ora_inceput = ora_inceput * 60
+         self.ora_sfarsit = ora_sfarsit * 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+</pre><h3>Mutant 7</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -7,7 +7,7 @@
+ 
+     def __init__(self, ora_inceput=8, ora_sfarsit=18, pauza_minima=0):
+         self.programari = []
+-        self.ora_inceput = ora_inceput * 60
++        self.ora_inceput = None
+         self.ora_sfarsit = ora_sfarsit * 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+         if pauza_minima < 0:
+</pre><h3>Mutant 8</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -8,7 +8,7 @@
+     def __init__(self, ora_inceput=8, ora_sfarsit=18, pauza_minima=0):
+         self.programari = []
+         self.ora_inceput = ora_inceput * 60
+-        self.ora_sfarsit = ora_sfarsit * 60
++        self.ora_sfarsit = ora_sfarsit / 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+         if pauza_minima < 0:
+             raise ValueError("Pauza minima nu poate fi negativa")
+</pre><h3>Mutant 10</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -8,7 +8,7 @@
+     def __init__(self, ora_inceput=8, ora_sfarsit=18, pauza_minima=0):
+         self.programari = []
+         self.ora_inceput = ora_inceput * 60
+-        self.ora_sfarsit = ora_sfarsit * 60
++        self.ora_sfarsit = None
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+         if pauza_minima < 0:
+             raise ValueError("Pauza minima nu poate fi negativa")
+</pre><h3>Mutant 11</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -10,7 +10,7 @@
+         self.ora_inceput = ora_inceput * 60
+         self.ora_sfarsit = ora_sfarsit * 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+-        if pauza_minima < 0:
++        if pauza_minima <= 0:
+             raise ValueError("Pauza minima nu poate fi negativa")
+         self.pauza_minima = pauza_minima
+ 
+</pre><h3>Mutant 12</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -10,7 +10,7 @@
+         self.ora_inceput = ora_inceput * 60
+         self.ora_sfarsit = ora_sfarsit * 60
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+-        if pauza_minima < 0:
++        if pauza_minima < 1:
+             raise ValueError("Pauza minima nu poate fi negativa")
+         self.pauza_minima = pauza_minima
+ 
+</pre><h3>Mutant 14</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -12,7 +12,7 @@
+         # pauza minima obligatorie intre doua programari consecutive (in minute)
+         if pauza_minima < 0:
+             raise ValueError("Pauza minima nu poate fi negativa")
+-        self.pauza_minima = pauza_minima
++        self.pauza_minima = None
+ 
+     def rezerva(self, nume, start, sfarsit):
+         if not isinstance(nume, str) or nume.strip() == "":
+</pre><h3>Mutant 15</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -15,7 +15,7 @@
+         self.pauza_minima = pauza_minima
+ 
+     def rezerva(self, nume, start, sfarsit):
+-        if not isinstance(nume, str) or nume.strip() == "":
++        if  isinstance(nume, str) or nume.strip() == "":
+             raise ValueError("Numele nu poate fi gol")
+ 
+         if start >= sfarsit:
+</pre><h3>Mutant 16</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -15,7 +15,7 @@
+         self.pauza_minima = pauza_minima
+ 
+     def rezerva(self, nume, start, sfarsit):
+-        if not isinstance(nume, str) or nume.strip() == "":
++        if not isinstance(nume, str) or nume.strip() != "":
+             raise ValueError("Numele nu poate fi gol")
+ 
+         if start >= sfarsit:
+</pre><h3>Mutant 26</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -24,7 +24,7 @@
+         if start < self.ora_inceput or sfarsit > self.ora_sfarsit:
+             raise ValueError("Programarea este in afara orelor de lucru")
+ 
+-        if not self.este_liber(start, sfarsit):
++        if  self.este_liber(start, sfarsit):
+             raise ValueError("Intervalul ales este deja ocupat")
+ 
+         programare = {"nume": nume, "start": start, "sfarsit": sfarsit}
+</pre><h3>Mutant 29</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -27,7 +27,7 @@
+         if not self.este_liber(start, sfarsit):
+             raise ValueError("Intervalul ales este deja ocupat")
+ 
+-        programare = {"nume": nume, "start": start, "sfarsit": sfarsit}
++        programare = {"nume": nume, "XXstartXX": start, "sfarsit": sfarsit}
+         self.programari.append(programare)
+         self.programari.sort(key=lambda x: x["start"])
+         return True
+</pre><h3>Mutant 30</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -27,7 +27,7 @@
+         if not self.este_liber(start, sfarsit):
+             raise ValueError("Intervalul ales este deja ocupat")
+ 
+-        programare = {"nume": nume, "start": start, "sfarsit": sfarsit}
++        programare = {"nume": nume, "start": start, "XXsfarsitXX": sfarsit}
+         self.programari.append(programare)
+         self.programari.sort(key=lambda x: x["start"])
+         return True
+</pre><h3>Mutant 31</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -27,7 +27,7 @@
+         if not self.este_liber(start, sfarsit):
+             raise ValueError("Intervalul ales este deja ocupat")
+ 
+-        programare = {"nume": nume, "start": start, "sfarsit": sfarsit}
++        programare = None
+         self.programari.append(programare)
+         self.programari.sort(key=lambda x: x["start"])
+         return True
+</pre><h3>Mutant 32</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -29,7 +29,7 @@
+ 
+         programare = {"nume": nume, "start": start, "sfarsit": sfarsit}
+         self.programari.append(programare)
+-        self.programari.sort(key=lambda x: x["start"])
++        self.programari.sort(key=lambda x: x["XXstartXX"])
+         return True
+ 
+     def anuleaza(self, nume):
+</pre><h3>Mutant 47</h3><pre>--- planificator_programari.py
++++ planificator_programari.py
+@@ -45,7 +45,7 @@
+         for programare in self.programari:
+             if start < programare["sfarsit"] + self.pauza_minima and sfarsit > programare["start"] - self.pauza_minima:
+                 return False
+-        return True
++        return False
+ 
+     def get_programari(self):
+         return list(self.programari)
+</pre></body></html>

@@ -37,8 +37,10 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+htmlcov/
 .tox/
 .nox/
+.coverage
 .coverage.*
 .cache
 nosetests.xml
@@ -214,6 +216,3 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-
-# Mutation testing
-.mutmut-cache
